@@ -42,10 +42,9 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
     $fishermaninsurance = new fishermaninsurance($id, '', '', '', '', '');
 
     $resultado = $object->atualizar($fishermaninsurance);
-    $str_nis = $resultado->getStrNis();
-    $str_name_person = $resultado->getStrNamePerson();
-    $str_cpf = $resultado->getStrCpf();
-    $int_rgp = $resultado->getIntRgp();
+    $str_month = $resultado->getStrMonth();
+    $str_year = $resultado->getStrYear();
+    $db_value = $resultado->getDbValue();
     $tb_beneficiaries_id_beneficiaries = $resultado->getTbBeneficiariesIdBeneficiaries();
     $tb_city_id_city = $resultado->getTbCityIdCity();
 
