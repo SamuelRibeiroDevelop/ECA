@@ -90,13 +90,13 @@ class cropguaranteeDAO
         $linha_inicial = ($pagina_atual -1) * QTDE_REGISTROS;
 
         /* Instrução de consulta para paginação com MySQL */
-        $sql = "SELECT id_crop_guarantee, str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries FROM tb_crop_guarantee INNER JOIN tb_state S ON S.id_state = C.tb_state_id_state LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
+        $sql = "SELECT id_crop_guarantee, str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries FROM tb_crop_guarantee LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $dados = $statement->fetchAll(PDO::FETCH_OBJ);
 
         /* Conta quantos registos existem na tabela */
-        $sqlContador = "SELECT COUNT(*) AS total_registros FROM tb_city";
+        $sqlContador = "SELECT COUNT(*) AS total_registros FROM tb_crop_guarantee";
         $statement = $pdo->prepare($sqlContador);
         $statement->execute();
         $valor = $statement->fetch(PDO::FETCH_OBJ);
@@ -131,21 +131,25 @@ class cropguaranteeDAO
      <thead>
        <tr style='text-transform: uppercase;' class='active'>
         <th style='text-align: center; font-weight: bolder;'>Code</th>
-        <th style='text-align: center; font-weight: bolder;'>Name</th>
+        <th style='text-align: center; font-weight: bolder;'>Month</th>
+        <th style='text-align: center; font-weight: bolder;'>Year</th>
+        <th style='text-align: center; font-weight: bolder;'>Value</th>
         <th style='text-align: center; font-weight: bolder;'>Code City</th>
-        <th style='text-align: center; font-weight: bolder;'>State</th>
+        <th style='text-align: center; font-weight: bolder;'>Code Benefit</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
        </tr>
      </thead>
      <tbody>";
-            foreach ($dados as $city):
+            foreach ($dados as $cg):
                 echo "<tr>
-        <td style='text-align: center'>$city->id_city</td>
-        <td style='text-align: center'>$city->str_name_city</td>
-        <td style='text-align: center'>$city->str_cod_siafi_city</td>
-        <td style='text-align: center'>$city->tb_state</td>
-        <td style='text-align: center'><a href='?act=upd&id=$city->id_city' title='Alterar'><i class='ti-reload'></i></a></td>
-        <td style='text-align: center'><a href='?act=del&id=$city->id_city' title='Remover'><i class='ti-close'></i></a></td>
+        <td style='text-align: center'>$cg->id_crop_guarantee</td>
+        <td style='text-align: center'>$cg->str_month</td>
+        <td style='text-align: center'>$cg->str_year</td>
+        <td style='text-align: center'>$cg->db_value</td>
+        <td style='text-align: center'>$cg->tb_city_id_city</td>
+        <td style='text-align: center'>$cg->tb_beneficiaries_id_beneficiaries</td>
+        <td style='text-align: center'><a href='?act=upd&id=$cg->id_crop_guarantee' title='Alterar'><i class='ti-reload'></i></a></td>
+        <td style='text-align: center'><a href='?act=del&id=$cg->id_crop_guarantee' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";
             endforeach;
             echo "
