@@ -31,7 +31,7 @@ CREATE TABLE `tb_city` (
   UNIQUE KEY `str_cod_siafi_city_UNIQUE` (`str_cod_siafi_city`),
   KEY `fk_tb_city_tb_state_idx` (`tb_state_id_state`),
   CONSTRAINT `fk_tb_city_tb_state` FOREIGN KEY (`tb_state_id_state`) REFERENCES `tb_state` (`id_state`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `tb_city` (
 
 LOCK TABLES `tb_city` WRITE;
 /*!40000 ALTER TABLE `tb_city` DISABLE KEYS */;
+INSERT INTO `tb_city` VALUES (1,'Juiz de Fora','2077',1);
 /*!40000 ALTER TABLE `tb_city` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-23 22:34:09
+-- Dump completed on 2018-09-03 22:30:11

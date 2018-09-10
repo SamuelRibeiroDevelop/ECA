@@ -32,7 +32,7 @@ CREATE TABLE `tb_state` (
   UNIQUE KEY `str_name_UNIQUE` (`str_name`),
   KEY `fk_tb_state_tb_region1_idx` (`tb_region_id_region`),
   CONSTRAINT `fk_tb_state_tb_region1` FOREIGN KEY (`tb_region_id_region`) REFERENCES `tb_region` (`id_region`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,6 +41,7 @@ CREATE TABLE `tb_state` (
 
 LOCK TABLES `tb_state` WRITE;
 /*!40000 ALTER TABLE `tb_state` DISABLE KEYS */;
+INSERT INTO `tb_state` VALUES (1,'MG','Minas Gerais',1);
 /*!40000 ALTER TABLE `tb_state` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-23 22:34:09
+-- Dump completed on 2018-09-03 22:30:11

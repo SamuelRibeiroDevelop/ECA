@@ -2,11 +2,11 @@
 
 require_once "classes/template.php";
 
-require_once "dao/fishermaninsuranceDAO.php";
-require_once "classes/fishermaninsurance.php";
+require_once "dao/cropguaranteeDAO.php";
+require_once "classes/cropguarantee.php";
 
 
-$object = new fishermaninsuranceDAO();
+$object = new cropguaranteeDAO();
 
 
 
@@ -39,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
 
-    $fishermaninsurance = new fishermaninsurance($id, '', '', '', '', '');
+    $cg = new cropguarantee($id, '', '', '', '', '');
 
-    $resultado = $object->atualizar($fishermaninsurance);
+    $resultado = $object->atualizar($cg);
     $str_month = $resultado->getStrMonth();
     $str_year = $resultado->getStrYear();
     $db_value = $resultado->getDbValue();
@@ -51,7 +51,7 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year!= "" && $db_value!= "" && $tb_beneficiaries_id_beneficiaries!= "" && $tb_city_id_city!= "") {
-    $fishermaninsurance = new fishermaninsurance($id, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city);
+    $cg = new cropguarantee($id, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city);
     $msg = $object->salvar($fishermaninsurance);
     $id = null;
     $str_month = null;
@@ -63,8 +63,8 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" &&
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
-    $fishermaninsurance = new fishermaninsurance($id, '', '','','', '');
-    $msg = $object->remover($fishermaninsurance);
+    $cg = new cropguarantee($id, '', '','','', '');
+    $msg = $object->remover($cg);
     $id = null;
 }
 
@@ -76,8 +76,8 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
             <div class='col-md-12'>
                 <div class='card'>
                     <div class='header'>
-                        <h4 class='title'>Fisherman Insurance</h4>
-                        <p class='category'>List of Fisherman Insurance of the system</p>
+                        <h4 class='title'>Crop Guarantee</h4>
+                        <p class='category'>List of Crop Guarantee of the system</p>
 
                     </div>
                     <div class='content table-responsive'>

@@ -184,6 +184,12 @@ class Template
                     </a>
                 </li>
                 <li>
+                    <a href='cropguarantee.php'>
+                        <i class=\"ti-money\"></i>
+                        <p>Crop Guarantee</p>
+                    </a>
+                </li>
+                <li>
                     <a href='programs.php'>
                         <i class=\"ti-view-list-alt\"></i>
                         <p>Programs</p>

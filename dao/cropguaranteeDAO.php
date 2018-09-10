@@ -24,7 +24,7 @@ class cropguaranteeDAO
         global $pdo;
         try {
             if ($cropguarantee->getIdCropGuarantee() != "") {
-                $statement = $pdo->prepare("UPDATE tb_crop_guarantee SET str_month=:str_month, str_year=:str_year, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries WHERE id_crop_guarantee = :id;");
+                $statement = $pdo->prepare("UPDATE tb_crop_guarantee SET str_month=:str_month, str_year=:str_year, db_value:db_value, tb_city_id_city=:tb_city_id_city, tb_beneficiaries_id_beneficiaries=:tb_beneficiaries_id_beneficiaries WHERE id_crop_guarantee = :id;");
                 $statement->bindValue(":id", $cropguarantee->getIdCropGuarantee());
             } else {
                 $statement = $pdo->prepare("INSERT INTO tb_crop_guarantee (str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries) VALUES (:str_month, :str_year, :db_value, :tb_city_id_city, :tb_beneficiaries_id_beneficiaries)");
@@ -90,7 +90,12 @@ class cropguaranteeDAO
         $linha_inicial = ($pagina_atual -1) * QTDE_REGISTROS;
 
         /* Instrução de consulta para paginação com MySQL */
-        $sql = "SELECT id_crop_guarantee, str_month, str_year, db_value, tb_city_id_city, tb_beneficiaries_id_beneficiaries FROM tb_crop_guarantee LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
+        $sql = "SELECT G.id_crop_guarantee, G.str_month, G.str_year, G.db_value, 
+        B.str_nis, B.str_cpf, B.int_rgp, B.str_name_person, B.id_beneficiaries, S.str_uf,
+        C.str_name_city, C.str_cod_siafi_city, C.id_city FROM tb_crop_guarantee G
+        INNER JOIN tb_city C ON F.tb_city_id_city = C.id_city INNER JOIN tb_beneficiaries B ON F.tb_beneficiaries_id_beneficiaries = B.id_beneficiaries
+        INNER JOIN tb_state S ON S.id_state = C.tb_state_id_state 
+        LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $dados = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -134,8 +139,15 @@ class cropguaranteeDAO
         <th style='text-align: center; font-weight: bolder;'>Month</th>
         <th style='text-align: center; font-weight: bolder;'>Year</th>
         <th style='text-align: center; font-weight: bolder;'>Value</th>
-        <th style='text-align: center; font-weight: bolder;'>Code City</th>
         <th style='text-align: center; font-weight: bolder;'>Code Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>NIS Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>CPF Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>RGP Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>Name Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>Code City</th>
+        <th style='text-align: center; font-weight: bolder;'>Name City</th>
+        <th style='text-align: center; font-weight: bolder;'>Code Siafi City</th>
+        <th style='text-align: center; font-weight: bolder;'>UF State</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
        </tr>
      </thead>
@@ -146,8 +158,15 @@ class cropguaranteeDAO
         <td style='text-align: center'>$cg->str_month</td>
         <td style='text-align: center'>$cg->str_year</td>
         <td style='text-align: center'>$cg->db_value</td>
-        <td style='text-align: center'>$cg->tb_city_id_city</td>
-        <td style='text-align: center'>$cg->tb_beneficiaries_id_beneficiaries</td>
+        <td style='text-align: center'>$cg->id_beneficiaries</td>
+        <td style='text-align: center'>$cg->str_nis</td>
+        <td style='text-align: center'>$cg->str_cpf</td>
+        <td style='text-align: center'>$cg->int_rgp</td>
+        <td style='text-align: center'>$cg->str_name_person</td>
+        <td style='text-align: center'>$cg->id_city</td>
+        <td style='text-align: center'>$cg->str_name_city</td>
+        <td style='text-align: center'>$cg->str_cod_siafi_city</td>
+        <td style='text-align: center'>$cg->str_uf</td>
         <td style='text-align: center'><a href='?act=upd&id=$cg->id_crop_guarantee' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$cg->id_crop_guarantee' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

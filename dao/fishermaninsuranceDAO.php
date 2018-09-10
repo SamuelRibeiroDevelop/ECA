@@ -96,7 +96,12 @@ class fishermaninsuranceDAO
         $linha_inicial = ($pagina_atual - 1) * QTDE_REGISTROS;
 
         /* Instrução de consulta para paginação com MySQL */
-        $sql = "SELECT id_fisherman_insurance, str_month, str_year, db_value, tb_beneficiaries_id_beneficiaries, tb_city_id_city FROM tb_fisherman_insurance LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
+        $sql = "SELECT F.id_fisherman_insurance, F.str_month, F.str_year, F.db_value, 
+        B.str_nis, B.str_cpf, B.int_rgp, B.str_name_person, B.id_beneficiaries, S.str_uf,
+        C.str_name_city, C.str_cod_siafi_city, C.id_city FROM tb_fisherman_insurance F 
+        INNER JOIN tb_city C ON F.tb_city_id_city = C.id_city INNER JOIN tb_beneficiaries B ON F.tb_beneficiaries_id_beneficiaries = B.id_beneficiaries
+        INNER JOIN tb_state S ON S.id_state = C.tb_state_id_state 
+        LIMIT {$linha_inicial}, " . QTDE_REGISTROS;
         $statement = $pdo->prepare($sql);
         $statement->execute();
         $dados = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -141,7 +146,14 @@ class fishermaninsuranceDAO
         <th style='text-align: center; font-weight: bolder;'>Year</th>
         <th style='text-align: center; font-weight: bolder;'>Value</th>
         <th style='text-align: center; font-weight: bolder;'>Code Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>NIS Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>CPF Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>RGP Benefit</th>
+        <th style='text-align: center; font-weight: bolder;'>Name Benefit</th>
         <th style='text-align: center; font-weight: bolder;'>Code City</th>
+        <th style='text-align: center; font-weight: bolder;'>Name City</th>
+        <th style='text-align: center; font-weight: bolder;'>Code Siafi City</th>
+        <th style='text-align: center; font-weight: bolder;'>UF State</th>
         <th style='text-align: center; font-weight: bolder;' colspan='2'>Actions</th>
        </tr>
      </thead>
@@ -152,8 +164,15 @@ class fishermaninsuranceDAO
         <td style='text-align: center'>$fisherman->str_month</td>
         <td style='text-align: center'>$fisherman->str_year</td>
         <td style='text-align: center'>$fisherman->db_value</td>
-        <td style='text-align: center'>$fisherman->tb_beneficiaries_id_beneficiaries</td>
-        <td style='text-align: center'>$fisherman->tb_city_id_city</td>
+        <td style='text-align: center'>$fisherman->id_beneficiaries</td>
+        <td style='text-align: center'>$fisherman->str_nis</td>
+        <td style='text-align: center'>$fisherman->str_cpf</td>
+        <td style='text-align: center'>$fisherman->int_rgp</td>
+        <td style='text-align: center'>$fisherman->str_name_person</td>
+        <td style='text-align: center'>$fisherman->id_city</td>
+        <td style='text-align: center'>$fisherman->str_name_city</td>
+        <td style='text-align: center'>$fisherman->str_cod_siafi_city</td>
+        <td style='text-align: center'>$fisherman->str_uf</td>
         <td style='text-align: center'><a href='?act=upd&id=$fisherman->id_fisherman_insurance' title='Alterar'><i class='ti-reload'></i></a></td>
         <td style='text-align: center'><a href='?act=del&id=$fisherman->id_fisherman_insurance' title='Remover'><i class='ti-close'></i></a></td>
        </tr>";

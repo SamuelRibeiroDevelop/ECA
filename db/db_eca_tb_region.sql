@@ -27,7 +27,7 @@ CREATE TABLE `tb_region` (
   `str_name_region` varchar(12) DEFAULT NULL,
   PRIMARY KEY (`id_region`),
   UNIQUE KEY `str_name_region_UNIQUE` (`str_name_region`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,6 +36,7 @@ CREATE TABLE `tb_region` (
 
 LOCK TABLES `tb_region` WRITE;
 /*!40000 ALTER TABLE `tb_region` DISABLE KEYS */;
+INSERT INTO `tb_region` VALUES (1,'Juiz de Fora');
 /*!40000 ALTER TABLE `tb_region` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -48,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-08-23 22:34:08
+-- Dump completed on 2018-09-03 22:30:11
