@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_eca
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,34 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_crop_guarantee`
+-- Table structure for table `tb_beneficiaries`
 --
 
-DROP TABLE IF EXISTS `tb_crop_guarantee`;
+DROP TABLE IF EXISTS `tb_beneficiaries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_crop_guarantee` (
-  `id_crop_guarantee` int(11) NOT NULL AUTO_INCREMENT,
-  `str_month` varchar(2) NOT NULL,
-  `str_year` varchar(4) NOT NULL,
-  `db_value` double NOT NULL,
-  `tb_city_id_city` int(11) NOT NULL,
-  `tb_beneficiaries_id_beneficiaries` bigint(20) NOT NULL,
-  PRIMARY KEY (`id_crop_guarantee`),
-  KEY `fk_tb_crop_guarantee_tb_city1_idx` (`tb_city_id_city`),
-  KEY `fk_tb_crop_guarantee_tb_beneficiaries1_idx` (`tb_beneficiaries_id_beneficiaries`),
-  CONSTRAINT `fk_tb_crop_guarantee_tb_beneficiaries1` FOREIGN KEY (`tb_beneficiaries_id_beneficiaries`) REFERENCES `tb_beneficiaries` (`id_beneficiaries`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_crop_guarantee_tb_city1` FOREIGN KEY (`tb_city_id_city`) REFERENCES `tb_city` (`id_city`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_beneficiaries` (
+  `id_beneficiaries` bigint(20) NOT NULL AUTO_INCREMENT,
+  `str_nis` varchar(14) NOT NULL,
+  `str_name_person` varchar(255) NOT NULL,
+  `str_cpf` varchar(14) NOT NULL,
+  `int_rgp` int(11) NOT NULL,
+  PRIMARY KEY (`id_beneficiaries`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_crop_guarantee`
+-- Dumping data for table `tb_beneficiaries`
 --
 
-LOCK TABLES `tb_crop_guarantee` WRITE;
-/*!40000 ALTER TABLE `tb_crop_guarantee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tb_crop_guarantee` ENABLE KEYS */;
+LOCK TABLES `tb_beneficiaries` WRITE;
+/*!40000 ALTER TABLE `tb_beneficiaries` DISABLE KEYS */;
+INSERT INTO `tb_beneficiaries` VALUES (1,'12234','Samuel','11384221697',790),(2,'4156','Claudia','11133322299',8605),(4,'98765','Aldair','77734288811',2134),(5,'34567','João','98755436127',9047);
+/*!40000 ALTER TABLE `tb_beneficiaries` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-03 22:30:11
+-- Dump completed on 2018-09-28 14:35:59

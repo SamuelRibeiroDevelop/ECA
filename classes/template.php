@@ -190,6 +190,18 @@ class Template
                     </a>
                 </li>
                 <li>
+                    <a href='peti.php'>
+                        <i class=\"ti-money\"></i>
+                        <p>PETI</p>
+                    </a>
+                </li>
+                <li>
+                    <a href='familyservicebag.php'>
+                        <i class=\"ti-money\"></i>
+                        <p>Family Service Bag</p>
+                    </a>
+                </li>
+                <li>
                     <a href='programs.php'>
                         <i class=\"ti-view-list-alt\"></i>
                         <p>Programs</p>

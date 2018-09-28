@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_eca
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,35 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_fisherman_insurance`
+-- Table structure for table `tb_crop_guarantee`
 --
 
-DROP TABLE IF EXISTS `tb_fisherman_insurance`;
+DROP TABLE IF EXISTS `tb_crop_guarantee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_fisherman_insurance` (
-  `id_fisherman_insurance` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `tb_crop_guarantee` (
+  `id_crop_guarantee` int(11) NOT NULL AUTO_INCREMENT,
   `str_month` varchar(2) NOT NULL,
   `str_year` varchar(4) NOT NULL,
   `db_value` double NOT NULL,
   `tb_city_id_city` int(11) NOT NULL,
   `tb_beneficiaries_id_beneficiaries` bigint(20) NOT NULL,
-  PRIMARY KEY (`id_fisherman_insurance`),
-  KEY `fk_tb_fisherman_insurance_tb_city1_idx` (`tb_city_id_city`),
-  KEY `fk_tb_fisherman_insurance_tb_beneficiaries1_idx` (`tb_beneficiaries_id_beneficiaries`),
-  CONSTRAINT `fk_tb_fisherman_insurance_tb_beneficiaries1` FOREIGN KEY (`tb_beneficiaries_id_beneficiaries`) REFERENCES `tb_beneficiaries` (`id_beneficiaries`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_tb_fisherman_insurance_tb_city1` FOREIGN KEY (`tb_city_id_city`) REFERENCES `tb_city` (`id_city`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_crop_guarantee`),
+  KEY `fk_tb_crop_guarantee_tb_city1_idx` (`tb_city_id_city`),
+  KEY `fk_tb_crop_guarantee_tb_beneficiaries1_idx` (`tb_beneficiaries_id_beneficiaries`),
+  CONSTRAINT `fk_tb_crop_guarantee_tb_beneficiaries1` FOREIGN KEY (`tb_beneficiaries_id_beneficiaries`) REFERENCES `tb_beneficiaries` (`id_beneficiaries`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tb_crop_guarantee_tb_city1` FOREIGN KEY (`tb_city_id_city`) REFERENCES `tb_city` (`id_city`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_fisherman_insurance`
+-- Dumping data for table `tb_crop_guarantee`
 --
 
-LOCK TABLES `tb_fisherman_insurance` WRITE;
-/*!40000 ALTER TABLE `tb_fisherman_insurance` DISABLE KEYS */;
-INSERT INTO `tb_fisherman_insurance` VALUES (1,'02','2018',700,1,1),(2,'12','2017',800,1,1),(4,'02','2017',890,1,1),(5,'02','2017',890,1,1);
-/*!40000 ALTER TABLE `tb_fisherman_insurance` ENABLE KEYS */;
+LOCK TABLES `tb_crop_guarantee` WRITE;
+/*!40000 ALTER TABLE `tb_crop_guarantee` DISABLE KEYS */;
+INSERT INTO `tb_crop_guarantee` VALUES (2,'05','2015',301,2,2),(5,'09','2014',181,1,5);
+/*!40000 ALTER TABLE `tb_crop_guarantee` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-03 22:30:11
+-- Dump completed on 2018-09-28 14:35:56

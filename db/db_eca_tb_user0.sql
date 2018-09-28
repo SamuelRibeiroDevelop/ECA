@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_eca
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_beneficiaries`
+-- Table structure for table `tb_user`
 --
 
-DROP TABLE IF EXISTS `tb_beneficiaries`;
+DROP TABLE IF EXISTS `tb_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_beneficiaries` (
-  `id_beneficiaries` bigint(20) NOT NULL AUTO_INCREMENT,
-  `str_nis` varchar(14) NOT NULL,
-  `str_name_person` varchar(255) NOT NULL,
-  `str_cpf` varchar(14) NOT NULL,
-  `int_rgp` int(11) NOT NULL,
-  PRIMARY KEY (`id_beneficiaries`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_user` (
+  `iduser` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(45) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `perfil` varchar(45) NOT NULL,
+  `resetar` tinyint(4) DEFAULT NULL,
+  `email` varchar(45) NOT NULL,
+  PRIMARY KEY (`iduser`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_beneficiaries`
+-- Dumping data for table `tb_user`
 --
 
-LOCK TABLES `tb_beneficiaries` WRITE;
-/*!40000 ALTER TABLE `tb_beneficiaries` DISABLE KEYS */;
-INSERT INTO `tb_beneficiaries` VALUES (1,'12234','Samuel','123',1234);
-/*!40000 ALTER TABLE `tb_beneficiaries` ENABLE KEYS */;
+LOCK TABLES `tb_user` WRITE;
+/*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
+INSERT INTO `tb_user` VALUES (1,'admin','D033E22AE348AEB5660FC2140AEC35850C4DA997','Samuel','0',0,'samuelribeirobraz@yahoo.com.br'),(2,'user','12dea96fec20593566ab75692c9949596833adc9','Usuário','1',1,'samuelribeirobraz@gmail.com');
+/*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-03 22:30:13
+-- Dump completed on 2018-09-28 14:35:58

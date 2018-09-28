@@ -8,8 +8,6 @@ require_once "classes/cropguarantee.php";
 
 $object = new cropguaranteeDAO();
 
-
-
 $template = new Template();
 
 $template->header();
@@ -23,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $str_month = (isset($_POST["str_month"]) && $_POST["str_month"] != null) ? $_POST["str_month"] : "";
     $str_year = (isset($_POST["str_year"]) && $_POST["str_year"] != null) ? $_POST["str_year"] : "";
     $db_value = (isset($_POST["db_value"]) && $_POST["db_value"] != null) ? $_POST["db_value"] : "";
-    $tb_beneficiaries_id_beneficiaries = (isset($_POST["tb_beneficiaries_id_beneficiaries"]) && $_POST["tb_beneficiaries_id_beneficiaries"] != null) ? $_POST["tb_beneficiaries_id_beneficiaries"] : "";
     $tb_city_id_city = (isset($_POST["tb_city_id_city"]) && $_POST["tb_city_id_city"] != null) ? $_POST["tb_city_id_city"] : "";
+    $tb_beneficiaries_id_beneficiaries = (isset($_POST["tb_beneficiaries_id_beneficiaries"]) && $_POST["tb_beneficiaries_id_beneficiaries"] != null) ? $_POST["tb_beneficiaries_id_beneficiaries"] : "";
 
 } else if (!isset($id)) {
     // Se não se não foi setado nenhum valor para variável $id
@@ -32,8 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $str_month = NULL;
     $str_year = NULL;
     $db_value = NULL;
-    $tb_beneficiaries_id_beneficiaries = NULL;
     $tb_city_id_city = NULL;
+    $tb_beneficiaries_id_beneficiaries = NULL;
 
 }
 
@@ -45,20 +43,20 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
     $str_month = $resultado->getStrMonth();
     $str_year = $resultado->getStrYear();
     $db_value = $resultado->getDbValue();
-    $tb_beneficiaries_id_beneficiaries = $resultado->getTbBeneficiariesIdBeneficiaries();
     $tb_city_id_city = $resultado->getTbCityIdCity();
+    $tb_beneficiaries_id_beneficiaries = $resultado->getTbBeneficiariesIdBeneficiaries();
 
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year!= "" && $db_value!= "" && $tb_beneficiaries_id_beneficiaries!= "" && $tb_city_id_city!= "") {
-    $cg = new cropguarantee($id, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city);
-    $msg = $object->salvar($fishermaninsurance);
+    $cg = new cropguarantee($id, $str_month, $str_year, $db_value, $tb_city_id_city, $tb_beneficiaries_id_beneficiaries);
+    $msg = $object->salvar($cg);
     $id = null;
     $str_month = null;
     $str_year = null;
     $db_value = null;
-    $tb_beneficiaries_id_beneficiaries = null;
     $tb_city_id_city = null;
+    $tb_beneficiaries_id_beneficiaries = null;
 
 }
 
@@ -109,15 +107,15 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             Code Benefit:
                             <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
                                 <?php
-                                $query = "SELECT * FROM tb_beneficiaries order by str_cpf;";
+                                $query = "SELECT * FROM tb_beneficiaries order by str_nis;";
                                 $statement = $pdo->prepare($query);
                                 if ($statement->execute()) {
                                     $result = $statement->fetchAll(PDO::FETCH_OBJ);
                                     foreach ($result as $rs) {
                                         if ($rs->id_beneficiaries == $tb_beneficiaries_id_beneficiaries) {
-                                            echo "<option value='$rs->id_beneficiaries' selected >$rs->str_name_person</option>";
+                                            echo "<option value='$rs->id_beneficiaries' selected >$rs->str_nis</option>";
                                         } else {
-                                            echo "<option value='$rs->id_beneficiaries' >$rs->str_name_person</option>";
+                                            echo "<option value='$rs->id_beneficiaries' >$rs->str_nis</option>";
                                         }
                                     }
                                 } else {
@@ -129,15 +127,15 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             Code City:
                             <select class="form-control" name="tb_city_id_city">
                                 <?php
-                                $query = "SELECT * FROM tb_city order by str_name_city;";
+                                $query = "SELECT * FROM tb_city order by str_cod_siafi_city;";
                                 $statement = $pdo->prepare($query);
                                 if ($statement->execute()) {
                                     $result = $statement->fetchAll(PDO::FETCH_OBJ);
                                     foreach ($result as $rs) {
                                         if ($rs->id_city == $tb_city_id_city) {
-                                            echo "<option value='$rs->id_city' selected>$rs->str_name_city</option>";
+                                            echo "<option value='$rs->id_city' selected>$rs->str_cod_siafi_city</option>";
                                         } else {
-                                            echo "<option value='$rs->id_city'>$rs->str_name_city</option>";
+                                            echo "<option value='$rs->id_city'>$rs->str_cod_siafi_city</option>";
                                         }
                                     }
                                 } else {

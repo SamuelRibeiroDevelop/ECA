@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_eca
 -- ------------------------------------------------------
--- Server version	5.7.20-log
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,32 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `tb_user`
+-- Table structure for table `tb_action`
 --
 
-DROP TABLE IF EXISTS `tb_user`;
+DROP TABLE IF EXISTS `tb_action`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tb_user` (
-  `iduser` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `nome` varchar(45) NOT NULL,
-  `perfil` varchar(45) NOT NULL,
-  `resetar` tinyint(4) DEFAULT NULL,
-  `email` varchar(45) NOT NULL,
-  PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_action` (
+  `id_action` int(11) NOT NULL AUTO_INCREMENT,
+  `str_cod_action` varchar(4) NOT NULL,
+  `str_name_action` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id_action`),
+  UNIQUE KEY `str_cod_action_UNIQUE` (`str_cod_action`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `tb_user`
+-- Dumping data for table `tb_action`
 --
 
-LOCK TABLES `tb_user` WRITE;
-/*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` VALUES (1,'admin','D033E22AE348AEB5660FC2140AEC35850C4DA997','Samuel','0',0,'samuelribeirobraz@yahoo.com.br'),(2,'user','12dea96fec20593566ab75692c9949596833adc9','Usuário','1',1,'samuelribeirobraz@gmail.com');
-/*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
+LOCK TABLES `tb_action` WRITE;
+/*!40000 ALTER TABLE `tb_action` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_action` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-03 22:30:12
+-- Dump completed on 2018-09-28 14:36:01

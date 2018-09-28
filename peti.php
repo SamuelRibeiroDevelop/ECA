@@ -2,11 +2,11 @@
 
 require_once "classes/template.php";
 
-require_once "dao/fishermaninsuranceDAO.php";
-require_once "classes/fishermaninsurance.php";
+require_once "dao/petiDAO.php";
+require_once "classes/peti.php";
 
 
-$object = new fishermaninsuranceDAO();
+$object = new petiDAO();
 
 
 
@@ -22,49 +22,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = (isset($_POST["id"]) && $_POST["id"] != null) ? $_POST["id"] : "";
     $str_month = (isset($_POST["str_month"]) && $_POST["str_month"] != null) ? $_POST["str_month"] : "";
     $str_year = (isset($_POST["str_year"]) && $_POST["str_year"] != null) ? $_POST["str_year"] : "";
-    $db_value = (isset($_POST["db_value"]) && $_POST["db_value"] != null) ? $_POST["db_value"] : "";
+    $str_situacao = (isset($_POST["str_situacao"]) && $_POST["str_situacao"] != null) ? $_POST["str_situacao"] : "";
+    $db_value_portion = (isset($_POST["db_value_portion"]) && $_POST["db_value_portion"] != null) ? $_POST["db_value_portion"] : "";
     $tb_beneficiaries_id_beneficiaries = (isset($_POST["tb_beneficiaries_id_beneficiaries"]) && $_POST["tb_beneficiaries_id_beneficiaries"] != null) ? $_POST["tb_beneficiaries_id_beneficiaries"] : "";
     $tb_city_id_city = (isset($_POST["tb_city_id_city"]) && $_POST["tb_city_id_city"] != null) ? $_POST["tb_city_id_city"] : "";
+
 
 } else if (!isset($id)) {
     // Se não se não foi setado nenhum valor para variável $id
     $id = (isset($_GET["id"]) && $_GET["id"] != null) ? $_GET["id"] : "";
     $str_month = NULL;
     $str_year = NULL;
-    $db_value = NULL;
+    $str_situacao = NULL;
+    $db_value_portion = NULL;
     $tb_beneficiaries_id_beneficiaries = NULL;
     $tb_city_id_city = NULL;
 
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "upd" && $id != "") {
+    $peti = new peti($id, '', '', '', '','', '');
 
-    $fishermaninsurance = new fishermaninsurance($id, '', '', '', '', '');
-
-    $resultado = $object->atualizar($fishermaninsurance);
+    $resultado = $object->atualizar($peti);
     $str_month = $resultado->getStrMonth();
     $str_year = $resultado->getStrYear();
-    $db_value = $resultado->getDbValue();
+    $str_situacao = $resultado->getStrSituacao();
+    $db_value_portion = $resultado->getDbValuePortion();
     $tb_beneficiaries_id_beneficiaries = $resultado->getTbBeneficiariesIdBeneficiaries();
     $tb_city_id_city = $resultado->getTbCityIdCity();
 
 }
 
-if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year!= "" && $db_value!= "" && $tb_beneficiaries_id_beneficiaries!= "" && $tb_city_id_city!= "") {
-    $fishermaninsurance = new fishermaninsurance($id, $str_month, $str_year, $db_value, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city);
-    $msg = $object->salvar($fishermaninsurance);
+if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "save" && $str_month != "" && $str_year != "" && $str_situacao !="" && $db_value_portion!= "" && $tb_beneficiaries_id_beneficiaries != "" && $tb_city_id_city != "") {
+
+    $peti = new peti($id, $str_month, $str_year, $str_situacao, $db_value_portion, $tb_beneficiaries_id_beneficiaries, $tb_city_id_city);
+    $msg = $object->salvar($peti);
     $id = null;
     $str_month = null;
     $str_year = null;
-    $db_value = null;
+    $str_situacao = null;
+    $db_value_portion = null;
     $tb_beneficiaries_id_beneficiaries = null;
     $tb_city_id_city = null;
 
 }
 
 if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
-    $fishermaninsurance = new fishermaninsurance($id, '', '','','', '');
-    $msg = $object->remover($fishermaninsurance);
+    $peti = new peti($id, '', '','', '','', '');
+    $msg = $object->remover($peti);
     $id = null;
 }
 
@@ -76,8 +81,8 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
             <div class='col-md-12'>
                 <div class='card'>
                     <div class='header'>
-                        <h4 class='title'>Fisherman Insurance</h4>
-                        <p class='category'>List of Fisherman Insurance of the system</p>
+                        <h4 class='title'>PETI</h4>
+                        <p class='category'>List of PETI of the system</p>
 
                     </div>
                     <div class='content table-responsive'>
@@ -100,13 +105,21 @@ if (isset($_REQUEST["act"]) && $_REQUEST["act"] == "del" && $id != "") {
                             echo (isset($str_year) && ($str_year != null || $str_year != "")) ? $str_year : '';
                             ?>"/>
                             <br/>
-                            Value:
-                            <input class="form-control" type="text" maxlength="14" name="db_value" placeholder="Enter numbers only" value="<?php
+                            Situation:
+                            <select class="form-control" name="str_situacao">
+                                <option> </option>
+                                <option>Sacado</option>
+                                <option>Não Sacado</option>
+                            </select>
+                            <br/>
+                            <br/>
+                            Value Portion:
+                            <input class="form-control" type="text" maxlength="14" name="db_value_portion" placeholder="Enter numbers only" value="<?php
                             // Preenche o sigla no campo sigla com um valor "value"
-                            echo (isset($db_value) && ($db_value != null || $db_value != "")) ? $db_value : '';
+                            echo (isset($db_value_portion) && ($db_value_portion != null || $db_value_portion != "")) ? $db_value_portion : '';
                             ?>"/>
                             <br/>
-                            Code Benefit:
+                            NIS Benefit:
                             <select class="form-control" name="tb_beneficiaries_id_beneficiaries">
                                 <?php
                                 $query = "SELECT * FROM tb_beneficiaries order by str_nis;";
